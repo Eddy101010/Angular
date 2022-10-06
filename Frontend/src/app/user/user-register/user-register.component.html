@@ -2,7 +2,7 @@
   <div class="col-6 m-auto">
   <div class="card m-auto">
     <div class="card-header">
-      Register
+      <h1>Register</h1>
     </div>
     <div class="card-body">
       <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
@@ -66,8 +66,8 @@
           </span>
         </div>
 
-       <app-adress [changes]="changes" (adress)="setAdress($event)"> </app-adress>
-       <app-adress [changes]="changes" (adress)="setAdress($event)"> </app-adress>
+       <!-- <app-adress [changes]="changes" (adress)="setAdress($event)"> </app-adress>
+       <app-adress [changes]="changes" (adress)="setAdress($event)"> </app-adress> -->
 
         <div class="form-group col-12">
           <button type="submit" class="btn btn-primary me-2">Save</button>

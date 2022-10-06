@@ -1,9 +1,16 @@
 import { Adresa } from "./adresa";
 
-export interface User {
+export interface UserForRegister {
   userName: string;
-  email: string;
+  email?: string;
   password: string;
-  mobile: number;
-  adresses: Adresa[];
+  mobile?: number;
+  adresses?: Adresa[];
 }
+
+export interface UserForLogin {
+  userName: string;
+  password: string;
+  token: string;
+}
+
