@@ -22,42 +22,14 @@ export class HousingService {
     return this.getAllProperties().pipe(
       map(propertiesArray => {
         //throw new Error('some error')
-        return propertiesArray.find(p => p.Id === id);
+        return propertiesArray.find(p => p.id === id);
       })
     );
   }
 
   getAllProperties(SellRent?: number): Observable<Property[]>{
-      return this.http.get('data/properties.json').pipe(
-      map(data => {
-        const propertiesArray: Array<Property> =[];
-        const localProperties = JSON.parse(localStorage.getItem('newProp')!);
+    return this.http.get<Property[]>(this.baseUrl + '/property/list/' + SellRent?.toString());
 
-        if (localProperties){
-          for (const id in localProperties) {
-            if(SellRent) {
-            if (localProperties.hasOwnProperty(id) && localProperties[id].SellRent === SellRent) {
-            propertiesArray.push(localProperties[id]);
-            }
-           } else {
-            propertiesArray.push(localProperties[id]);
-           }
-          }
-        }
-
-        for (const id in data) {
-
-          if (SellRent){
-          if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
-          propertiesArray.push(data[id]);
-          }
-        } else {
-          propertiesArray.push(data[id]);
-        }
-        }
-        return propertiesArray;
-      })
-    );
   }
   addProperty(property: Property) {
     let newProp = [property];
