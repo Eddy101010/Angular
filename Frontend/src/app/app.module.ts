@@ -28,6 +28,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgModel } from '@angular/forms';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 
 
@@ -48,6 +49,8 @@ import { PropertyDetailResolverService } from './property/property-detail/proper
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { HttpErrorInterceptorService } from './services/httperror-interceptor.service';
+import { NgChartsModule } from 'ng2-charts';
+import { SignalRService } from './services/signal-r.service';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -104,7 +107,8 @@ const appRoutes: Routes = [
     MatSlideToggleModule,
     ButtonsModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgChartsModule
   ],
   providers: [
     {
@@ -115,7 +119,8 @@ const appRoutes: Routes = [
     HousingService,
     AlertifyService,
     AuthService,
-    PropertyDetailResolverService
+    PropertyDetailResolverService,
+    SignalRService
   ],
   exports: [
     FormsModule,
