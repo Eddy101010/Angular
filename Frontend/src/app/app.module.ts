@@ -50,7 +50,6 @@ import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { HttpErrorInterceptorService } from './services/httperror-interceptor.service';
 import { NgChartsModule } from 'ng2-charts';
-import { SignalRService } from './services/signal-r.service';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -119,8 +118,7 @@ const appRoutes: Routes = [
     HousingService,
     AlertifyService,
     AuthService,
-    PropertyDetailResolverService,
-    SignalRService
+    PropertyDetailResolverService
   ],
   exports: [
     FormsModule,

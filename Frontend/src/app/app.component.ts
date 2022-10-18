@@ -1,47 +1,27 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { SignalRService } from './services/signal-r.service';
+import { Component } from '@angular/core';
+import * as signalR from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'my-first-app';
+export class AppComponent {
+    title = 'my-first-app';
+    private hubConnectionBuilder!: HubConnection;
+    offers: any[] = [];
+    constructor() {}
+    ngOnInit(): void {
+        this.hubConnectionBuilder = new HubConnectionBuilder().withUrl('http://localhost:5227/offers' , {
+          skipNegotiation: true,
+          transport: signalR.HttpTransportType.WebSockets}
+          )
+          .configureLogging(LogLevel.Information).build();
 
-  // public chartOptions: any = {
-  //   scaleShowVerticalLines: true,
-  //   responsive: true,
-  //   scales: {
-  //     yAxes:[{
-  //       ticks: {
-  //         beginAtZero: true
-  //       }
-  //     }]
-  //   }
-  // }
-  // public chartLabels: string[] = ['Real time data for chart'];
-  // public chartType: string = 'bar';
-  // public chartLegend: boolean = true;
-  // public colors: any[] = [
-  //   { backgroundColor: '#5491DA'},
-  //   { backgroundColor: '#E74C3C'},
-  //   { backgroundColor: '#82E0AA'},
-  //   { backgroundColor: '#E5E7E9'}]
-
-  constructor(public signalRService: SignalRService, private http: HttpClient){}
-
-  ngOnInit(){
-    this.signalRService.startConnection();
-    this.signalRService.addTransferChartDataListener();
-    this.startHttpRequest();
-  }
-
-  private startHttpRequest = () =>{
-    this.http.get('https://localhost:5227/api/chart')
-    .subscribe(res =>{
-      console.log(res);
-    })
-  }
+        this.hubConnectionBuilder.start().then(() => console.log('Connection started')).catch(err => console.log('Connection error'));
+        this.hubConnectionBuilder.on('SendOffersToUsers', (result: any) => {
+            this.offers.push(result);
+        });
+    }
 }
