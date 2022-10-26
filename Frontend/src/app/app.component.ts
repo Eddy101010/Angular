@@ -9,6 +9,7 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signal
 })
 export class AppComponent {
     title = 'my-first-app';
+
     private hubConnectionBuilder!: HubConnection;
     offers: any[] = [];
     constructor() {}
