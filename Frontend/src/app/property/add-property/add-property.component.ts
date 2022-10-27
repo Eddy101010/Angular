@@ -6,6 +6,7 @@ import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { HousingService } from 'src/app/services/housing.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { Property } from 'src/app/model/property';
+import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
 
 
 @Component({
@@ -20,8 +21,8 @@ export class AddPropertyComponent implements OnInit {
   property = new Property();
 
   bhkNr: Array<string> = ['1', '2', '3', '4']
-  propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex']
-  furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished']
+  propertyTypes: Ikeyvaluepair[];
+  furnishTypes: Ikeyvaluepair[];
   cityList: any[];
 
   propertyView: IPropertyBase = {
@@ -48,7 +49,15 @@ export class AddPropertyComponent implements OnInit {
     this.housingService.getAllCities().subscribe (data => {
       this.cityList = data;
       console.log(data);
-    })
+    });
+
+    this.housingService.getPropertyTypes().subscribe(data => {
+      this.propertyTypes = data;
+    });
+
+    this.housingService.getFurnishingTypes().subscribe(data => {
+      this.furnishTypes = data;
+    });
   }
 
   CreateAddPropertyForm() {
@@ -66,8 +75,8 @@ export class AddPropertyComponent implements OnInit {
         Price: [null, Validators.required],
         BuiltArea: [null, Validators.required],
         CarpetArea: [null],
-        Security: [null],
-        Maintenance: [null],
+        Security: [0],
+        Maintenance: [0],
       }),
 
       AddressInfo: this.fb.group({
@@ -79,7 +88,7 @@ export class AddPropertyComponent implements OnInit {
 
       OtherInfo: this.fb.group({
         RTM: [null, Validators.required],
-        PossessionOn: [null],
+        PossessionOn: [null, Validators.required],
         AOP: [null],
         Gated: [null],
         MainEntrance: [null],
@@ -217,10 +226,10 @@ export class AddPropertyComponent implements OnInit {
     this.property.id = this.housingService.newPropID();
     this.property.sellRent = +this.SellRent.value;
     this.property.bhk = this.BHK.value;
-    this.property.propertyType = this.PType.value;
+    this.property.propertyTypeId = this.PType.value;
     this.property.name = this.Name.value;
-    this.property.city = this.City.value;
-    this.property.furnishingType = this.FType.value;
+    this.property.CityId = this.City.value;
+    this.property.furnishingTypeId = this.FType.value;
     this.property.price = this.Price.value;
     this.property.security = this.Security.value;
     this.property.maintenance = this.Maintenance.value;
@@ -231,7 +240,6 @@ export class AddPropertyComponent implements OnInit {
     this.property.adress = this.Address.value;
     this.property.adress2 = this.LandMark.value;
     this.property.readyToMove = this.RTM.value;
-    this.property.age = this.AOP.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;
     this.property.estPossessionOn = this.PossessionOn.value;
