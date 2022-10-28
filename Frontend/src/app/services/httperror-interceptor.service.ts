@@ -1,7 +1,6 @@
 import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { createInjectableType } from "@angular/compiler";
 import { Injectable } from "@angular/core";
-import { catchError, concatMap, Observable, of, retry, retryWhen, throwError } from "rxjs";
+import { catchError, concatMap, Observable, of, retryWhen, throwError } from "rxjs";
 import { ErrorCode } from "../enums/enums";
 import { AlertifyService } from "./alertify.service";
 

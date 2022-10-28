@@ -7,6 +7,7 @@ import { HousingService } from 'src/app/services/housing.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { Property } from 'src/app/model/property';
 import { Ikeyvaluepair } from 'src/app/model/ikeyvaluepair';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -35,10 +36,11 @@ export class AddPropertyComponent implements OnInit {
     bhk: 0,
     builtArea: 0,
     city: '',
-    readyToMove: 0
+    readyToMove: null!
   };
 
   constructor(
+    private datePipe: DatePipe,
     private fb: FormBuilder,
     private router: Router,
     private housingService: HousingService,
@@ -205,22 +207,24 @@ export class AddPropertyComponent implements OnInit {
   onSubmit() {
     this.nextClicked = true;
     if (this.allTabsValid()) {
-      this.mapProperty();
-      this.housingService.addProperty(this.property);
-      this.alertify.success('You have succesfully registered your property!');
-      console.log(this.addPropertyForm);
+        this.mapProperty();
+        this.housingService.addProperty(this.property).subscribe(
+            () => {
+                this.alertify.success('Congrats, your property listed successfully on our website');
+                console.log(this.addPropertyForm);
 
-      if(this.SellRent.value === '2') {
-        this.router.navigate(['/rent-property']);
-      } else {
-        this.router.navigate(['/']);
-      }
-
+                if (this.SellRent.value === '2') {
+                    this.router.navigate(['/rent-property']);
+                } else {
+                    this.router.navigate(['/']);
+                }
+            }
+        );
 
     } else {
-      this.alertify.error('Please review the form and provide all valid entries');
+        this.alertify.error('Please review the form and provide all valid entries');
     }
-  }
+}
 
   mapProperty(): void {
     this.property.id = this.housingService.newPropID();
@@ -242,7 +246,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.readyToMove = this.RTM.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;
-    this.property.estPossessionOn = this.PossessionOn.value;
+    this.property.estPossessionOn = this.datePipe.transform(this.PossessionOn.value, 'MM/dd/yyyy');
     this.property.description = this.Description.value;
   }
 

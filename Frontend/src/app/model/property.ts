@@ -18,13 +18,13 @@ export class Property implements IPropertyBase {
   city: string;
   floorNo?: string;
   totalFloors?: string;
-  readyToMove: number;
+  readyToMove: boolean;
   age?: string;
   mainEntrance?: string;
   security?: number;
   gated?: boolean;
   maintenance?: number;
-  estPossessionOn?: Date | any;
+  estPossessionOn?: any;
   image?: string;
   description?: string;
 }

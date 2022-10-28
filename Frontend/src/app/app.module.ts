@@ -50,6 +50,7 @@ import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { HttpErrorInterceptorService } from './services/httperror-interceptor.service';
 import { NgChartsModule } from 'ng2-charts';
+import { DatePipe } from '@angular/common';
 
 const appRoutes: Routes = [
   {path: '', component: PropertyListComponent},
@@ -115,6 +116,7 @@ const appRoutes: Routes = [
       useClass: HttpErrorInterceptorService,
       multi : true
     },
+    DatePipe,
     HousingService,
     AlertifyService,
     AuthService,

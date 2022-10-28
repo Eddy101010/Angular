@@ -31,17 +31,6 @@ galleryImages: NgxGalleryImage[];
 
       this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
 
-    // this.route.params.subscribe(
-    //   (params) => {
-    //     this.propertyId = +params['id'];
-    //     this.housingService.getProperty(this.propertyId).subscribe(
-    //       (data: Property) => {
-    //         this.property = data;
-    //       }, error => this.router.navigate(['/'])
-    //     );
-    //   }
-    // );
-
     this.galleryOptions = [
       {
         width: '100%',
@@ -79,18 +68,6 @@ galleryImages: NgxGalleryImage[];
         big: 'assets/images/internal-5.jpg'
       }
     ];
-
-
-    // this.route.params.subscribe(
-    //   (params) => {
-    //     this.propertyId = +params['id'];
-    //     this.housingService.getProperty(this.propertyId).subscribe(
-    //       (data: any) => {
-    //         this.property = data;
-    //       }, error => this.router.navigate(['/'])
-    //     );
-    //   }
-    // );
 
     this.galleryOptions = [
       {
