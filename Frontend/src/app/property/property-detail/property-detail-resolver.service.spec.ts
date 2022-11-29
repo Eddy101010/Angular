@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { PropertyDetailResolverService } from './property-detail-resolver.service';
+import { PropertyDetailResolverService } from '../../services/property-detail-resolver.service';
 
 describe('Service: PropertyDetailResolver', () => {
   beforeEach(() => {

@@ -204,6 +204,7 @@ export class AddPropertyComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+
   onSubmit() {
     this.nextClicked = true;
     if (this.allTabsValid()) {
@@ -230,6 +231,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.id = this.housingService.newPropID();
     this.property.sellRent = +this.SellRent.value;
     this.property.bhk = this.BHK.value;
+
     this.property.propertyTypeId = this.PType.value;
     this.property.name = this.Name.value;
     this.property.CityId = this.City.value;

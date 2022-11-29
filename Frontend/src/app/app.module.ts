@@ -45,7 +45,7 @@ import { AlertifyService } from './services/alertify.service';
 import { AuthService } from './services/auth.service';
 import { AdressComponent } from './user/user-register/adress/adress.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import { PropertyDetailResolverService } from './property/property-detail/property-detail-resolver.service';
+import { PropertyDetailResolverService } from './services/property-detail-resolver.service';
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { HttpErrorInterceptorService } from './services/httperror-interceptor.service';
