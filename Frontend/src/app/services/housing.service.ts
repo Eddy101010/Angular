@@ -41,7 +41,7 @@ export class HousingService {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       })
     }
-    return this.http.post(this.baseUrl + '/property/add', property, httpOptions)
+    return this.http.post(this.baseUrl + '/Property/add/property', property, httpOptions)
   }
 
   newPropID(){
