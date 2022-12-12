@@ -13,6 +13,7 @@ import {NgxGalleryAnimation} from '@kolkov/ngx-gallery';
 })
 export class PropertyDetailComponent implements OnInit {
 public propertyId: number;
+public mainPhotoUrl: string;
 property = new Property();
 galleryOptions: NgxGalleryOptions[];
 galleryImages: NgxGalleryImage[];
@@ -26,48 +27,11 @@ galleryImages: NgxGalleryImage[];
      this.route.data.subscribe(
        (data) => {
          this.property = data['prp'];
+         console.log(this.property.photos);
        }
      );
 
-      this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
-
-    this.galleryOptions = [
-      {
-        width: '100%',
-        height: '465px',
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-        preview: true
-      }
-    ];
-
-    this.galleryImages = [
-      {
-        small: 'assets/images/internal-1.jpg',
-        medium: 'assets/images/internal-1.jpg',
-        big: 'assets/images/internal-1.jpg'
-      },
-      {
-        small: 'assets/images/internal-2.jpg',
-        medium: 'assets/images/internal-2.jpg',
-        big: 'assets/images/internal-2.jpg'
-      },
-      {
-        small: 'assets/images/internal-3.jpg',
-        medium: 'assets/images/internal-3.jpg',
-        big: 'assets/images/internal-3.jpg'
-      },
-      {
-        small: 'assets/images/internal-4.jpg',
-        medium: 'assets/images/internal-4.jpg',
-        big: 'assets/images/internal-4.jpg'
-      },
-      {
-        small: 'assets/images/internal-5.jpg',
-        medium: 'assets/images/internal-5.jpg',
-        big: 'assets/images/internal-5.jpg'
-      }
-    ];
+    this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
 
     this.galleryOptions = [
       {
@@ -78,32 +42,26 @@ galleryImages: NgxGalleryImage[];
       },
     ];
 
-    this.galleryImages = [
-      {
-        small: 'assets/images/internal-1.jpeg',
-        medium: 'assets/images/internal-1.jpeg',
-        big: 'assets/images/internal-1.jpeg'
-      },
-      {
-        small: 'assets/images/internal-2.jpeg',
-        medium: 'assets/images/internal-2.jpeg',
-        big: 'assets/images/internal-2.jpeg'
-      },
-      {
-        small: 'assets/images/internal-3.jpeg',
-        medium: 'assets/images/internal-3.jpeg',
-        big: 'assets/images/internal-3.jpeg'
-      },{
-        small: 'assets/images/internal-4.jpeg',
-        medium: 'assets/images/internal-4.jpeg',
-        big: 'assets/images/internal-4.jpeg'
-      },
-      {
-        small: 'assets/images/internal-5.jpeg',
-        medium: 'assets/images/internal-5.jpeg',
-        big: 'assets/images/internal-5.jpeg'
-      }
-    ];
+    this.galleryImages = this.getPropertyPhotos();
 
   }
+
+  getPropertyPhotos(): NgxGalleryImage[]
+  {
+    const photoUrls: NgxGalleryImage[] = [];
+    for(const photo of this.property.photos!) {
+      if(photo.isPrimary)
+       {this.mainPhotoUrl = photo.imageUrl;}
+       else{
+      photoUrls.push(
+        {
+          small: photo.imageUrl,
+          medium: photo.imageUrl,
+          big: photo.imageUrl
+        }
+      );}
+    }
+    return photoUrls;
+  }
+
 }
